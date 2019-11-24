@@ -1,6 +1,5 @@
 language: java
-sudo: true
-dist: trusty
+dist: bionic
 jdk:
     - oraclejdk8
 
