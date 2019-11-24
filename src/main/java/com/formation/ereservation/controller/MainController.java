@@ -20,7 +20,8 @@ public class MainController {
 	Logger logger = LoggerFactory.getLogger(MainController.class);
 	 
     @Autowired
-    private EmployeeRepository employeeRepository;
+    private EmployeeRepository employeeRepository
+	
  
     private static final String[] NAMES = new String[] { "Tom", "Jerry", "Donald" };
  
