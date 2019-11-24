@@ -1,0 +1,10 @@
+pipeline {
+    agent { docker 'maven:3-alpine' } 
+    stages {
+        stage('Example Build Complie') {
+            steps {
+                sh 'mvn -B clean compile'
+            }
+        }
+    }
+}
