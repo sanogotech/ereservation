@@ -3,5 +3,7 @@ dist: bionic
 jdk:
     - oraclejdk11
     
+before_install:
+  - chmod +x mvnw
 script:
     - ./mvnw  clean compile
