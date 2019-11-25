@@ -11,9 +11,9 @@ pipeline {
             timeout(time: 1, unit: 'HOURS') 
     }
 	
-	triggers {
-        cron('H */4 * * 1-5')
-    }
+	//triggers {
+        //cron('H */4 * * 1-5')
+    //}
 	
 	parameters {
         string(name: 'PERSON', defaultValue: 'Mr Jenkins', description: 'Who should I say hello to?')
