@@ -1,18 +1,38 @@
 pipeline {
-    agent none 
+    agent any
     stages {
-        stage('Example Build') {
-            agent { docker 'maven:3-alpine' } 
+	
+		stage('Source /Preparation') {
+				
+				// Get some code from a GitHub repository
+				git 'https://github.com/sanogotech/ereservation.git'
+				// Get the Maven tool.
+				// ** NOTE: This 'M3' Maven tool must be configured
+				// **       in the global configuration.           
+				mvnHome = tool 'M3'
+		}
+		
+        stage('Build') {
             steps {
-                echo 'Hello, Maven'
+                echo 'Hello, Build Maven'
                 sh 'mvn --version'
+				sh 'mvn compile'
             }
         }
-        stage('Example Test') {
-            agent { docker 'openjdk:8-jre' } 
+        stage('Test') { 
             steps {
-                echo 'Hello, JDK'
+                echo 'Hello, Test '
                 sh 'java -version'
+				sh 'mvn test'
+            }
+        }
+		
+		
+		 stage('Package') { 
+            steps {
+                echo 'Hello, Package'
+                sh 'java -version'
+				sh 'mvn package'
             }
         }
     }
