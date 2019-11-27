@@ -2,13 +2,15 @@ pipeline {
     agent any
     stages {
 	
-		stage('Source /Preparation') {
+		stage('SourcePreparation') {
 				
 				// Get some code from a GitHub repository
 				git 'https://github.com/sanogotech/ereservation.git'
+				
 				// Get the Maven tool.
 				// ** NOTE: This 'M3' Maven tool must be configured
-				// **       in the global configuration.           
+				// **  in the global configuration.  
+				
 				mvnHome = tool 'M3'
 		}
 		
