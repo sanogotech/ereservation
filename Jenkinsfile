@@ -16,15 +16,18 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Hello, Build Maven'
-                sh 'mvn --version'
-				sh 'mvn compile'
+				withMaven(maven : 'M3') {
+						bat'mvn clean compile'
+				}
             }
         }
         stage('Test') { 
             steps {
                 echo 'Hello, Test '
-                sh 'java -version'
-				sh 'mvn test'
+                withMaven(maven : 'M3') {
+						bat 'mvn test'
+				}
+
             }
         }
 		
@@ -32,8 +35,10 @@ pipeline {
 		 stage('Package') { 
             steps {
                 echo 'Hello, Package'
-                sh 'java -version'
-				sh 'mvn package'
+				
+				withMaven(maven : 'M3') {
+						bat 'mvn package'
+				}
             }
         }
     }
