@@ -1,5 +1,8 @@
 pipeline {
     agent any
+	tools {
+        maven 'M3' 
+    }
     stages {
 	
 		stage('SourcePreparation') {
@@ -16,17 +19,14 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Hello, Build Maven'
-				withMaven(maven : 'M3') {
-						bat'mvn clean compile'
-				}
+				bat'mvn clean compile'
             }
         }
         stage('Test') { 
             steps {
                 echo 'Hello, Test '
-                withMaven(maven : 'M3') {
-						bat 'mvn test'
-				}
+				bat 'mvn test'
+			}
 
             }
         }
@@ -35,10 +35,7 @@ pipeline {
 		 stage('Package') { 
             steps {
                 echo 'Hello, Package'
-				
-				withMaven(maven : 'M3') {
-						bat 'mvn package'
-				}
+				bat 'mvn package'
             }
         }
     }
