@@ -16,7 +16,13 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.springframework.boot.test.context.SpringBootTest;
 
+/**
+  mvn clean -DexcludedGroups="integration"  test
+  
+  mvn clean -Dgroups="integration,slow"  test
+**/
 @SpringBootTest
+@Tag("integration")
 public class LoginTest {
 	
   private WebDriver driver;
@@ -34,12 +40,13 @@ public class LoginTest {
     js = (JavascriptExecutor) driver;
     vars = new HashMap<String, Object>();
   }
+  
   @AfterEach
   public void tearDown() {
     driver.quit();
   }
-  //@Test
- // @Tag("integration")
+  
+  @Test
   public void login() {
     driver.get("http://localhost:8080/login");
     //driver.manage().window().setSize(new Dimension(1038, 728));
@@ -51,9 +58,5 @@ public class LoginTest {
     driver.findElement(By.cssSelector(".active > #home-section .row")).click();
   }
   
-	@Test
-	void mytestLogin() {
-		System.out.println("Login test..");
 
-	}
 }
