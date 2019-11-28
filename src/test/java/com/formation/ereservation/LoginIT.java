@@ -17,7 +17,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-public class LoginTest {
+public class LoginIT {
 	
   private WebDriver driver;
   private Map<String, Object> vars;
@@ -38,7 +38,7 @@ public class LoginTest {
   public void tearDown() {
     driver.quit();
   }
-  //@Test
+  @Test
  // @Tag("integration")
   public void login() {
     driver.get("http://localhost:8080/login");
@@ -50,10 +50,4 @@ public class LoginTest {
     driver.findElement(By.cssSelector(".btn")).click();
     driver.findElement(By.cssSelector(".active > #home-section .row")).click();
   }
-  
-	@Test
-	void mytestLogin() {
-		System.out.println("Login test..");
-
-	}
 }

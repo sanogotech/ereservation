@@ -7,7 +7,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 class EreservationApplicationTests {
 
 	@Test
-	void contextLoads() {
+	void mytestHello() {
+		System.out.println("My Test ..");
+
 	}
 
 }
