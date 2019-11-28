@@ -24,7 +24,7 @@ pipeline {
         stage('Test') { 
             steps {
                 echo 'Hello, Test '
-				bat 'mvn  -DexcludedGroups='integration'   test'
+				bat 'mvn  -DexcludedGroups=integration   test'
 			}
 
         }
