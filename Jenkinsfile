@@ -42,8 +42,8 @@ pipeline {
 	
 	post {
         always {
-            archive "target/**/*"
-            junit 'target/surefire-reports/*.xml'
+            //archive "target/**/*"
+            junit './target/surefire-reports/*.xml'
         }
         success {
             mail to:"me@example.com", subject:"SUCCESS: ${currentBuild.fullDisplayName}", body: "Yay, we passed."
