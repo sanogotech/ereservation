@@ -22,13 +22,14 @@ pipeline {
 				bat'mvn clean compile'
             }
         }
+        
         stage('Test') { 
             steps {
                 echo 'Hello, Test '
 				bat 'mvn  clean -DexcludedGroups=integration   test'
 			}
 			
-			 ost {
+			post {
                 always {
                     junit 'target/surefire-reports/*.xml'
                 }
