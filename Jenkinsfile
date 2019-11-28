@@ -6,6 +6,7 @@ pipeline {
 				// ** NOTE: This 'M3' Maven tool must be configured
 				// **  in the global configuration. 
     }
+	
     stages {
 	
 		stage('SourcePreparation') {
@@ -25,8 +26,13 @@ pipeline {
             steps {
                 echo 'Hello, Test '
 				bat 'mvn  clean -DexcludedGroups=integration   test'
-				junit '/target/surefire-reports/*.xml'
 			}
+			
+			 ost {
+                always {
+                    junit 'target/surefire-reports/*.xml'
+                }
+            }
 
         }
 		
@@ -38,6 +44,21 @@ pipeline {
 				//bat 'mvn -B -DskipTests clean package'
             }
         }
+		
+		stage('deployStage') {
+			steps {
+				 echo 'Hello, deployScript'
+				//sh 'deployScript.sh'
+				//bat 'deployScript.bat'
+			}
+			post {
+				failure {
+					 echo 'Hello, rollback'
+					//sh 'rollback.sh'
+					//bat 'rollback.bat'
+				}
+			}
+		}
     }
 	
 	
