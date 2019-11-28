@@ -1,0 +1,39 @@
+// https://jenkins.io/doc/book/pipeline/
+//https://github.com/jenkinsci/pipeline-model-definition-plugin/wiki/Using-multiple-steps,-stages-and-notifications
+pipeline {
+    tools {
+        maven "Maven 3.3.9"
+        jdk "Oracle JDK 8u40"
+    }
+
+    agent { label "any-executor" }
+
+    stages {
+        stage("build") {
+            steps {
+                sh 'echo "path: ${PATH}"'
+                sh 'echo "M2_HOME: ${M2_HOME}"'
+                sh 'mvn clean install -Dmaven.test.failure.ignore=true'
+            }
+        }
+    }
+
+    post {
+        always {
+            archive "target/**/*"
+            junit 'target/surefire-reports/*.xml'
+        }
+        success {
+            mail to:"me@example.com", subject:"SUCCESS: ${currentBuild.fullDisplayName}", body: "Yay, we passed."
+        }
+        failure {
+            mail to:"me@example.com", subject:"FAILURE: ${currentBuild.fullDisplayName}", body: "Boo, we failed."
+        }
+        unstable {
+            mail to:"me@example.com", subject:"UNSTABLE: ${currentBuild.fullDisplayName}", body: "Huh, we're unstable."
+        }
+        changed {
+            mail to:"me@example.com", subject:"CHANGED: ${currentBuild.fullDisplayName}", body: "Wow, our status changed!"
+        }
+    }
+}

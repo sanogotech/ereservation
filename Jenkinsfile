@@ -25,6 +25,7 @@ pipeline {
             steps {
                 echo 'Hello, Test '
 				bat 'mvn  clean -DexcludedGroups=integration   test'
+				junit 'reports/**/*.xml'
 			}
 
         }
@@ -35,6 +36,26 @@ pipeline {
                 echo 'Hello, Package'
 				bat 'mvn clean -DexcludedGroups=integration  package'
             }
+        }
+    }
+	
+	
+	post {
+        always {
+            archive "target/**/*"
+            junit 'target/surefire-reports/*.xml'
+        }
+        success {
+            mail to:"me@example.com", subject:"SUCCESS: ${currentBuild.fullDisplayName}", body: "Yay, we passed."
+        }
+        failure {
+            mail to:"me@example.com", subject:"FAILURE: ${currentBuild.fullDisplayName}", body: "Boo, we failed."
+        }
+        unstable {
+            mail to:"me@example.com", subject:"UNSTABLE: ${currentBuild.fullDisplayName}", body: "Huh, we're unstable."
+        }
+        changed {
+            mail to:"me@example.com", subject:"CHANGED: ${currentBuild.fullDisplayName}", body: "Wow, our status changed!"
         }
     }
 }
