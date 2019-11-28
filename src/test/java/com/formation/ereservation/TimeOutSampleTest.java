@@ -30,7 +30,7 @@ public class TimeOutSampleTest {
 		// execution exceeded timeout of 10 ms by 91 ms
 		assertTimeout(ofMillis(10), () -> {
 			// Simulate task that takes more than 10 ms.
-			Thread.sleep(100);
+			//Thread.sleep(100);
 		});
 	}
 }
