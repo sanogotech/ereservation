@@ -33,7 +33,7 @@ pipeline {
 		stage('Package') { 
             steps {
                 echo 'Hello, Package'
-				bat 'mvn package'
+				bat 'mvn clean -DexcludedGroups=integration  package'
             }
         }
     }
