@@ -25,7 +25,7 @@ pipeline {
             steps {
                 echo 'Hello, Test '
 				bat 'mvn  clean -DexcludedGroups=integration   test'
-				junit 'reports/**/*.xml'
+				junit '/target/surefire-reports/*.xml'
 			}
 
         }
@@ -43,9 +43,8 @@ pipeline {
 	
 	post {
         always {
-            //archive "target/**/*"
-            //junit '/target/surefire-reports/*.xml'
-			echo 'Hello, Junit reports'
+           archive "target/**/*"
+   
         }
         success {
             mail to:"me@example.com", subject:"SUCCESS: ${currentBuild.fullDisplayName}", body: "Yay, we passed."
